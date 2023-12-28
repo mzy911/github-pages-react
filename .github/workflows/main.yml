@@ -1,2 +1,12 @@
 # 项目名称
 name: deploy-website
+
+# 触发事件
+on:
+  # master 分支被 push 时触发
+  push:
+    branches: [master]
+  # 往 master 分支上提 pr 的时候触发
+  pull_request:
+    branches: [master]
+  
