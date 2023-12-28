@@ -34,6 +34,12 @@ jobs:
       # 构建应用
       - name: build app
         run: npm run build
+      - name: Deploy
+        uses: JamesIves/github-pages-deploy-action@v4.2.5
+        with:
+          branch: gh-pages
+          folder: build
+          token: ${{ secrets.ACCESS_TOKEN }}
       # 部署到具体的服务器
       # - name: copy dist file with scp
       #   uses: appleboy/scp-action@v0.0.1
