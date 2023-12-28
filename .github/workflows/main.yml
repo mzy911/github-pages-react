@@ -9,4 +9,43 @@ on:
   # 往 master 分支上提 pr 的时候触发
   pull_request:
     branches: [master]
-  
+  # 通过手动操作 Actions tab 触发
+  workflow_dispatch:
+
+# 执行的具体任务
+jobs:
+  # 任务名称(自定义语义化名称、可多个)
+  build:
+    # 依赖的操作系统
+    runs-on: ubuntu-latest
+    # 任务具体步骤(可并列多个)
+    steps:
+      # Checkout 代码
+      - name: checkout code
+        uses: actions/checkout@v4
+      # 安装 nodeJs
+      - name: install nodejs
+        uses: actions/setup-node@v1
+        with:
+          node-version: '18.19.0'
+      # 安装依赖包
+      - name: install deps
+        run: npm install
+      # 构建应用
+      - name: build app
+        run: npm run build
+      # 部署到具体的服务器
+      # - name: copy dist file with scp
+      #   uses: appleboy/scp-action@v0.0.1
+      #   with:
+      #     host: '服务器的ip'
+      #     username: '用户名'
+      #     passworkd: ${{secrets.REMORE_PASS}}
+      #    port: 22
+      #     # 本地目录路径
+      #     source: 'docs/'
+      #     # 目标目录路径
+      #     target: ''
+      
+      
+    
