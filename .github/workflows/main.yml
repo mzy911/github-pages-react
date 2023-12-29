@@ -34,24 +34,19 @@ jobs:
       # 构建应用
       - name: build app
         run: yarn build
-      # - name: Deploy
-      #   uses: JamesIves/github-pages-deploy-action@v4.2.5
-      #   with:
-      #     branch: gh-pages
-      #     folder: build
-      #     token: ${{ secrets.ACCESS_TOKEN }}
       # 部署到具体的服务器
-      # - name: copy dist file with scp
-      #   uses: appleboy/scp-action@v0.0.1
-      #   with:
-      #     host: '服务器的ip'
-      #     username: '用户名'
-      #     passworkd: ${{secrets.REMORE_PASS}}
-      #    port: 22
-      #     # 本地目录路径
-      #     source: 'docs/'
-      #     # 目标目录路径
-      #     target: ''
+      - name: develop
+        uses: cross-the-world/scp-pipeline@master
+        env:
+          WELCOME: "ssh scp ssh pipelines"
+          LASTSSH: "Doing something after copying"
+        with:
+          host: ${{ secrets.USER_HOST }}
+          user: ${{ secrets.USER_NAME }}
+          pass: ${{ secrets.USER_PASS }}
+          connect_timeout: 10s
+          local: './build/*'
+          remote: /www/server/nginx/html
       
       
     
